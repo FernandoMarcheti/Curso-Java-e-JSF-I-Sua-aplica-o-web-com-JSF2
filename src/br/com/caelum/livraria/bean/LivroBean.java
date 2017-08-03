@@ -23,6 +23,10 @@ public class LivroBean {
 	private Livro livro = new Livro();
 	private Integer autorId;
 	
+	public void setLivro(Livro livro) {
+		this.livro = livro;
+	}
+	
 	public Integer getAutorId() {
 		return autorId;
 	}
@@ -62,8 +66,20 @@ public class LivroBean {
 			return;
 		}
 
-		new DAO<Livro>(Livro.class).adiciona(this.livro);
+		if(this.livro.getId() == null){
+			new DAO<Livro>(Livro.class).adiciona(this.livro);
+		} else {
+			new DAO<Livro>(Livro.class).atualiza(this.livro);
+		}
 		livro = new Livro();
+	}
+	
+	public void remover(Livro livro){
+		new DAO<Livro>(Livro.class).remove(livro);
+	}
+	
+	public void removerAutor(Autor autor){
+		this.livro.remover(autor);
 	}
 	
 	public RedirectView formAutor(){

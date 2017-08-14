@@ -9,9 +9,16 @@
 	<body>
 		
 		<div id="cabecalho">
-			<h:graphicImage library="img" name="logo.png" />
-			<h:outputText value="#{sessionScope['usuarioLogado'].email}" />
-			<h1><ui:insert name="titulo" /></h1>
+			<h:panelGrid columns="1">
+				<h:graphicImage library="img" name="logo.png" />
+				<h:form rendered="#{usuarioLogado != null}">
+					<h:panelGrid columns="2">
+						<h:outputText value="#{sessionScope['usuarioLogado'].email}" />
+						<h:commandLink value="Deslogar" action="#{loginBean.deslogar}" />
+					</h:panelGrid>
+				</h:form>
+				<h1><ui:insert name="titulo" /></h1>
+			</h:panelGrid>
 		</div>
 		
 		<div id="conteudo">
